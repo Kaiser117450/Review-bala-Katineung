@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import { supabase } from '../lib/supabase';
 
-export const POST: APIRoute = async ({ request, redirect }) => {
+export const post: APIRoute = async ({ request, redirect }) => {
   try {
     const formData = await request.formData();
     const rating = formData.get('rating');
@@ -58,15 +58,8 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     );
   }
 };
-export const GET: APIRoute = async ({ request }) => {
-  // Penanganan untuk metode GET di rute "/api/review"
-  return new Response(
-    JSON.stringify({ message: 'API endpoint for reviews' }),
-    {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }
-  );
+
+export const GET: APIRoute = async ({ request, redirect }) => {
+  // Redirect ke halaman utama
+  return redirect('/terimakasih');
 };
