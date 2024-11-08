@@ -14,22 +14,6 @@
 		{
 			"src": "^\\/_image$",
 			"dest": "_render"
-		},
-		{
-			"src": "^\\/api\\/review\\/?$",
-			"dest": "_render"
-		},
-		{
-			"src": "^\\/lib\\/supabase\\/?$",
-			"dest": "_render"
-		},
-		{
-			"src": "^\\/terimakasih\\/?$",
-			"dest": "_render"
-		},
-		{
-			"src": "^\\/$",
-			"dest": "_render"
 		}
 	]
 }
