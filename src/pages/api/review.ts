@@ -4,8 +4,8 @@ import { supabase } from '../lib/supabase';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    const body = await request.json();
-    const { rating, reactions, review } = body;
+    const data = await request.json();
+    const { rating, reactions, review } = data;
 
     // Validasi dasar
     if (!rating || !review) {
@@ -24,17 +24,16 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     // Insert ke Supabase
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from('reviews')
       .insert([
         {
-          rating: parseInt(rating.toString()),
+          rating: parseInt(rating),
           reactions: reactions || [],
           review: review,
           created_at: new Date().toISOString()
         }
-      ])
-      .select();
+      ]);
 
     if (error) throw error;
 
