@@ -3,6 +3,8 @@ const wifiNetwork = "COS.BALA KATINEUNG 5G";
 const wifiPassword = "2d$39}Yfl5K6";
 const wifiType = "WPA"; // WPA, WEP, atau empty for open networks
 
+import { Image } from 'astro:assets';
+import qrbar from '../assets/qrcode.png';
 ---
 
      <!-- WiFi Card -->
@@ -22,7 +24,7 @@ const wifiType = "WPA"; // WPA, WEP, atau empty for open networks
           
           <!-- QR Code Container -->
           <div class="flex justify-center mb-6">
-            <div id="qrcode" class="p-4 bg-white rounded-xl border-2 border-green-700"> <img src="../../src/img/qrcode.png" alt="">
+            <div id="qrcode" class="p-4 bg-white rounded-xl border-2 border-green-700"> <Image src={qrbar} alt=""/>
              </div>
           </div>
 
