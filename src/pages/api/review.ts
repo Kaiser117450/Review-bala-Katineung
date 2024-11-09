@@ -1,12 +1,11 @@
+// src/pages/api/review.ts
 import type { APIRoute } from 'astro';
 import { supabase } from '../lib/supabase';
 
-export const post: APIRoute = async ({ request, redirect }) => {
+export const POST: APIRoute = async ({ request }) => {
   try {
-    const formData = await request.formData();
-    const rating = formData.get('rating');
-    const reaction = formData.getAll('reaction');
-    const review = formData.get('review');
+    const body = await request.json();
+    const { rating, reactions, review } = body;
 
     // Validasi dasar
     if (!rating || !review) {
@@ -30,7 +29,7 @@ export const post: APIRoute = async ({ request, redirect }) => {
       .insert([
         {
           rating: parseInt(rating.toString()),
-          reactions: reaction,
+          reactions: reactions || [],
           review: review,
           created_at: new Date().toISOString()
         }
@@ -39,8 +38,18 @@ export const post: APIRoute = async ({ request, redirect }) => {
 
     if (error) throw error;
 
-    // Redirect ke halaman terima kasih
-    return redirect('/terimakasih');
+    return new Response(
+      JSON.stringify({
+        success: true,
+        message: 'Review berhasil disimpan'
+      }),
+      { 
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    );
 
   } catch (error) {
     console.error('Error submitting review:', error);
@@ -57,9 +66,4 @@ export const post: APIRoute = async ({ request, redirect }) => {
       }
     );
   }
-};
-
-export const GET: APIRoute = async ({ request, redirect }) => {
-  // Redirect ke halaman utama
-  return redirect('/terimakasih');
 };
